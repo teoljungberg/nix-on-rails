@@ -7,8 +7,8 @@ redis_pid="$root/tmp/redis.pid"
 
 postgres_start() {
   if ! pg_ctl status 1>/dev/null 2>/dev/null; then
-    if [ -z "$PGLOG" ] || [ -z "$PGHOST" ] || [ -z "$PGDATA" ]; then
-      echo "Expected 'PGLOG', 'PGHOST', and 'PGDATA' to be set" >&2
+    if [ -z "$PGLOG" ] || [ -z "$PGHOST" ] || [ -z "$PGDATA" ] || [ -z "$PGPORT" ]; then
+      echo "Expected 'PGLOG', 'PGHOST', 'PGDATA', and 'PGPORT' to be set" >&2
       echo "which are set automatically by shell.nix" >&2
       exit 1
     fi
