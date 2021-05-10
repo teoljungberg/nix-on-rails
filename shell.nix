@@ -30,14 +30,14 @@ in stdenv.mkDerivation {
     export PGPORT=FILL_IN
     unset CC
 
-    CPATH=${cpathEnv}:${
+    CPATH=${
       pkgs.lib.makeSearchPathOutput "dev" "include" [ libxml2 libxslt ]
-    }
-    LIBRARY_PATH=${libraryPathEnv}:${
+    }:${cpathEnv}
+    LIBRARY_PATH=${
       pkgs.lib.makeLibraryPath [ libxml2 libxslt ]
-    }
-    PATH=${pathEnv}:$HOME/.gem/ruby/${ruby.version.libDir}/bin:${
+    }:${libraryPathEnv}
+    PATH=$HOME/.gem/ruby/${ruby.version.libDir}/bin:${
       pkgs.lib.makeBinPath [ env postgresql ]
-    }
+    }:${pathEnv}
   '';
 }
