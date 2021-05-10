@@ -1,0 +1,7 @@
+/latest.dump*
+/dump.rdb*
+
+/shell.nix
+/.direnv/
+/bin/mainframe
+/.envrc

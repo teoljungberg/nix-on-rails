@@ -1,0 +1,54 @@
+#!/bin/sh
+
+set -e
+
+root=$(cd "$(dirname "$0")/.." && pwd)/
+redis_pid="$root/tmp/redis.pid"
+
+postgres_start() {
+  if ! pg_ctl status 1>/dev/null 2>/dev/null; then
+    if [ -z "$PGLOG" ] || [ -z "$PGHOST" ] || [ -z "$PGDATA" ]; then
+      echo "Expected 'PGLOG', 'PGHOST', and 'PGDATA' to be set" >&2
+      echo "which are set automatically by shell.nix" >&2
+      exit 1
+    fi
+
+    if [ ! -d "$PGDATA" ]; then
+      initdb --auth=trust --no-locale --encoding=UTF8
+    fi
+
+    pg_ctl start -l "$PGLOG" -o "--port='$PGPORT' --unix_socket_directories='$PGHOST'" 1>/dev/null 2>/dev/null &
+  fi
+}
+
+postgres_stop() {
+  pg_ctl stop -D "$PGDATA" 1>/dev/null 2>/dev/null
+}
+
+redis_start() {
+  if ! redis-cli ping 1>/dev/null 2>/dev/null; then
+    rm -f "$redis_pid"
+    redis-server 1>/dev/null 2>/dev/null &
+    echo $! >> "$redis_pid"
+  fi
+}
+
+redis_stop() {
+  if [ -e "$redis_pid" ]; then
+    kill "$(cat "$redis_pid")"
+    rm -f "$redis_pid"
+  fi
+}
+
+show_help() {
+  echo "Start: bin/mainframe up"
+  echo "       bin/mainframe u"
+  echo "Down: bin/mainframe down"
+  echo "      bin/mainframe d"
+}
+
+case "$1" in
+  up|u) postgres_start; redis_start ;;
+  down|d) postgres_stop; redis_stop ;;
+  *) show_help; exit 1;;
+esac
