@@ -3,19 +3,10 @@ with import <nixpkgs> { };
 let
   stdenv = pkgs.clangStdenv;
 
+  postgresql = postgresql_13;
   ruby = ruby_3_0;
-  paths = [
-    clang
-    git
-    libpcap
-    libxml2
-    libxslt
-    pkg-config
-    postgresql_13
-    redis
-    ruby
-    zlib
-  ];
+  paths =
+    [ clang git libpcap libxml2 libxslt pkg-config postgresql redis ruby zlib ];
 
   env = pkgs.buildEnv {
     name = "YOUR_APP_ENV";
@@ -46,7 +37,7 @@ in stdenv.mkDerivation {
       pkgs.lib.makeLibraryPath [ libxml2 libxslt ]
     }
     PATH=${pathEnv}:$HOME/.gem/ruby/${ruby.version.libDir}/bin:${
-      pkgs.lib.makeBinPath [ env ]
+      pkgs.lib.makeBinPath [ env postgresql ]
     }
   '';
 }
