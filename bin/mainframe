@@ -48,8 +48,8 @@ redis_stop() {
 }
 
 show_help() {
-  echo "Start: bin/mainframe up"
-  echo "       bin/mainframe u"
+  echo "Up: bin/mainframe up"
+  echo "    bin/mainframe u"
   echo "Down: bin/mainframe down"
   echo "      bin/mainframe d"
 }
