@@ -19,6 +19,8 @@ let
   pathEnv = builtins.getEnv "PATH";
 in stdenv.mkDerivation {
   name = "YOUR_APP";
+  phases = lib.optional stdenv.isLinux [ "unpackPhase" ] ++ [ "noPhase" ];
+  noPhase = "mkdir -p $out";
 
   buildInputs = paths;
 
