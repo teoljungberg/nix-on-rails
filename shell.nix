@@ -33,9 +33,11 @@ in stdenv.mkDerivation {
     CPATH=${
       pkgs.lib.makeSearchPathOutput "dev" "include" [ libxml2 libxslt ]
     }:${cpathEnv}
+
     LIBRARY_PATH=${
       pkgs.lib.makeLibraryPath [ libxml2 libxslt ]
     }:${libraryPathEnv}
+
     PATH=$HOME/.gem/ruby/${ruby.version.libDir}/bin:${
       pkgs.lib.makeBinPath [ env postgresql ]
     }:${pathEnv}
