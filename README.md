@@ -1,4 +1,4 @@
-w Nix on Rails
+# Nix on Rails
 
 An example of what is required to run your run-of-the-mill Rails application.
 
