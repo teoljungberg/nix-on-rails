@@ -1,12 +1,25 @@
 with import <nixpkgs> { };
 
 let
-  stdenv = pkgs.clangStdenv;
-
   postgresql = postgresql_13;
   ruby = ruby_3_0;
-  paths =
-    [ clang git libpcap libxml2 libxslt pkg-config postgresql redis ruby zlib ];
+  paths = [
+    cmake
+    file
+    gcc
+    git
+    gnumake
+    libffi
+    libpcap
+    libxml2
+    libxslt
+    pkg-config
+    pkgconfig
+    postgresql
+    redis
+    ruby
+    zlib
+  ];
 
   env = pkgs.buildEnv {
     name = "YOUR_APP_ENV";
