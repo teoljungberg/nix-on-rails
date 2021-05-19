@@ -12,7 +12,7 @@ postgres_start() {
       [ -z "$PGHOST" ] || \
       [ -z "$PGDATA" ] || \
       [ -z "$PGPORT" ]; then
-          echo "Expected 'PGLOG', 'PGHOST', 'PGDATA', and 'PGPORT' to be set" >&2
+          echo "Expected PGLOG, PGHOST, PGDATA, and PGPORT to be set" >&2
           echo "which are set automatically by shell.nix" >&2
           exit 1
     fi
