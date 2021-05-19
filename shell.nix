@@ -1,9 +1,11 @@
-with import <nixpkgs> { };
+with import
+  (fetchTarball "https://github.com/NixOS/nixpkgs/archive/7a1fbc38a4b5.tar.gz")
+  { };
 
 let
-  postgresql = postgresql_13;
-  ruby = ruby_3_0;
-  paths = [
+  postgresql = pkgs.postgresql_13;
+  ruby = pkgs.ruby_3_0;
+  paths = with pkgs; [
     cmake
     file
     gcc
@@ -46,11 +48,14 @@ in stdenv.mkDerivation {
     unset CC
 
     CPATH=${
-      pkgs.lib.makeSearchPathOutput "dev" "include" [ libxml2 libxslt ]
+      pkgs.lib.makeSearchPathOutput "dev" "include" [
+        pkgs.libxml2
+        pkgs.libxslt
+      ]
     }:${cpathEnv}
 
     LIBRARY_PATH=${
-      pkgs.lib.makeLibraryPath [ libxml2 libxslt ]
+      pkgs.lib.makeLibraryPath [ pkgs.libxml2 pkgs.libxslt ]
     }:${libraryPathEnv}
 
     PATH=$HOME/.gem/ruby/${ruby.version.libDir}/bin:${
