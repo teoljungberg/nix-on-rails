@@ -32,6 +32,10 @@ postgres_stop() {
   pg_ctl stop -D "$PGDATA" 1>/dev/null 2>/dev/null
 }
 
+postgres_status() {
+  echo "PostgreSQL: $(pg_ctl status)"
+}
+
 redis_start() {
   if ! redis-cli ping 1>/dev/null 2>/dev/null; then
     rm -f "$redis_pid"
@@ -47,15 +51,22 @@ redis_stop() {
   fi
 }
 
+redis_status() {
+  echo "Redis: $(redis-cli ping)"
+}
+
 show_help() {
-  echo "Up: bin/mainframe up"
-  echo "    bin/mainframe u"
+  echo "Start: bin/mainframe up"
+  echo "       bin/mainframe u"
   echo "Down: bin/mainframe down"
   echo "      bin/mainframe d"
+  echo "Status: bin/mainframe status"
+  echo "        bin/mainframe s"
 }
 
 case "$1" in
   up|u) postgres_start; redis_start ;;
   down|d) postgres_stop; redis_stop ;;
+  status|s) postgres_status; echo; redis_status ;;
   *) show_help; exit 1;;
 esac
