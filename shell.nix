@@ -59,7 +59,7 @@ in stdenv.mkDerivation {
     }:${libraryPathEnv}
 
     PATH=$HOME/.gem/ruby/${ruby.version.libDir}/bin:${
-      pkgs.lib.makeBinPath [ env postgresql ]
+      pkgs.lib.makeBinPath [ env ]
     }:${pathEnv}
   '';
 }
