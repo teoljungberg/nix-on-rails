@@ -1,3 +1,4 @@
+# https://status.nixos.org/
 with import
   (fetchTarball "https://github.com/NixOS/nixpkgs/archive/7a1fbc38a4b5.tar.gz")
   { };
