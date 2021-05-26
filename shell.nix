@@ -59,7 +59,7 @@ in stdenv.mkDerivation {
       pkgs.lib.makeLibraryPath [ pkgs.libxml2 pkgs.libxslt ]
     }:${libraryPathEnv}
 
-    PATH=$HOME/.gem/ruby/${ruby.version.libDir}/bin:${
+    PATH=$HOME/.gem/ruby/${ruby.version}/bin:${
       pkgs.lib.makeBinPath [ env ]
     }:${pathEnv}
   '';
