@@ -33,7 +33,7 @@ let
   cpathEnv = builtins.getEnv "CPATH";
   libraryPathEnv = builtins.getEnv "LIBRARY_PATH";
   pathEnv = builtins.getEnv "PATH";
-in stdenv.mkDerivation {
+in pkgs.mkShell {
   name = "YOUR_APP";
   phases = lib.optional stdenv.isLinux [ "unpackPhase" ] ++ [ "noPhase" ];
   noPhase = "mkdir -p $out";
