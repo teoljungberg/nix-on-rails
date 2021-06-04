@@ -33,7 +33,7 @@ postgres_stop() {
 }
 
 postgres_status() {
-  echo "PostgreSQL: $(pg_ctl status)"
+  pg_ctl status
 }
 
 redis_start() {
@@ -52,7 +52,7 @@ redis_stop() {
 }
 
 redis_status() {
-  echo "Redis: $(redis-cli ping)"
+  redis-cli ping
 }
 
 show_help() {
