@@ -65,9 +65,25 @@ show_help() {
   echo "        bin/mainframe s"
 }
 
+up() {
+  postgres_start
+  redis_start
+}
+
+down() {
+  postgres_stop
+  redis_stop
+}
+
+status() {
+  postgres_status
+  echo
+  redis_status
+}
+
 case "$1" in
-  up|u) postgres_start; redis_start ;;
-  down|d) postgres_stop; redis_stop ;;
-  status|s) postgres_status; echo; redis_status ;;
+  up|u) up ;;
+  down|d) down ;;
+  status|s) status ;;
   *) show_help; exit 1;;
 esac
