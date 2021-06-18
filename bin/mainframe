@@ -76,9 +76,11 @@ down() {
 }
 
 status() {
+  set +e
   postgres_status
   echo
   redis_status
+  set -e
 }
 
 case "$1" in
