@@ -5,9 +5,14 @@ set -e
 
 root=$(cd "$(dirname "$0")/.." && pwd)/
 redis_pid="$root/tmp/redis.pid"
+if [ -n "$DEBUG" ]; then
+  OUTPUT="/dev/stdout"
+else
+  OUTPUT="/dev/null"
+fi
 
 postgres_start() {
-  if ! pg_ctl status 1>/dev/null 2>/dev/null; then
+  if ! pg_ctl status 1>$OUTPUT 2>$OUTPUT; then
     if \
       [ -z "$PGLOG" ] || \
       [ -z "$PGHOST" ] || \
@@ -19,28 +24,28 @@ postgres_start() {
     fi
 
     if [ ! -d "$PGDATA" ]; then
-      initdb --auth=trust --no-locale --encoding=UTF8
+      initdb --auth=trust --no-locale --encoding=UTF8 1>$OUTPUT 2>$OUTPUT
     fi
 
     pg_ctl start \
       -l "$PGLOG" \
       -o "--port='$PGPORT' --unix_socket_directories='$PGHOST'" \
-      1>/dev/null 2>/dev/null &
+      1>$OUTPUT 2>$OUTPUT &
   fi
 }
 
 postgres_stop() {
-  pg_ctl stop -D "$PGDATA" 1>/dev/null 2>/dev/null
+  pg_ctl stop -D "$PGDATA" 1>$OUTPUT 2>$OUTPUT
 }
 
 postgres_status() {
-  pg_ctl status
+  pg_ctl status 1>$OUTPUT
 }
 
 redis_start() {
-  if ! redis-cli ping 1>/dev/null 2>/dev/null; then
+  if ! redis-cli ping 1>$OUTPUT 2>$OUTPUT; then
     rm -f "$redis_pid"
-    redis-server 1>/dev/null 2>/dev/null &
+    redis-server 1>$OUTPUT 2>$OUTPUT &
     echo $! >> "$redis_pid"
   fi
 }
@@ -77,13 +82,12 @@ down() {
 
 status() {
   set +e
-  if postgres_status 1>/dev/null 2>/dev/null; then
+  if postgres_status 1>$OUTPUT 2>$OUTPUT; then
     echo "PortgreSQL: OK"
   else
     echo "PortgreSQL: ERROR"
   fi
-  echo
-  if redis_status 1>/dev/null 2>/dev/null; then
+  if redis_status 1>$OUTPUT 2>$OUTPUT; then
     echo "Redis: OK"
   else
     echo "Redis: ERROR"
