@@ -77,9 +77,17 @@ down() {
 
 status() {
   set +e
-  postgres_status
+  if postgres_status 1>/dev/null 2>/dev/null; then
+    echo "PortgreSQL: OK"
+  else
+    echo "PortgreSQL: ERROR"
+  fi
   echo
-  redis_status
+  if redis_status 1>/dev/null 2>/dev/null; then
+    echo "Redis: OK"
+  else
+    echo "Redis: ERROR"
+  fi
   set -e
 }
 
