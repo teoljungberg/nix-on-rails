@@ -27,7 +27,7 @@ let
   env = pkgs.buildEnv {
     name = "YOUR_APP_ENV";
     paths = paths;
-    extraOutputsToInstall = [ "bin" "dev" "lib" ];
+    extraOutputsToInstall = [ "bin" "lib" "include" ];
   };
 
   cpathEnv = builtins.getEnv "CPATH";
@@ -48,19 +48,8 @@ in pkgs.mkShell {
     export PGPORT=FILL_IN
     unset CC
 
-    CPATH=${
-      pkgs.lib.makeSearchPathOutput "dev" "include" [
-        pkgs.libxml2
-        pkgs.libxslt
-      ]
-    }:${cpathEnv}
-
-    LIBRARY_PATH=${
-      pkgs.lib.makeLibraryPath [ pkgs.libxml2 pkgs.libxslt ]
-    }:${libraryPathEnv}
-
-    PATH=$HOME/.gem/ruby/${ruby.version}/bin:${
-      pkgs.lib.makeBinPath [ env ]
-    }:${pathEnv}
+    export CPATH=${env}/include:${cpathEnv}
+    export LIBRARY_PATH=${env}/lib:${libraryPathEnv}
+    PATH=$HOME/.gem/ruby/${ruby.version}/bin:${env}/bin:${pathEnv}
   '';
 }
