@@ -25,7 +25,7 @@ let
   ];
 
   env = pkgs.buildEnv {
-    name = "YOUR_APP_ENV";
+    name = "nix-on-rails-env";
     paths = paths;
     extraOutputsToInstall = [ "bin" "lib" "include" ];
   };
@@ -34,7 +34,7 @@ let
   libraryPathEnv = builtins.getEnv "LIBRARY_PATH";
   pathEnv = builtins.getEnv "PATH";
 in pkgs.mkShell {
-  name = "YOUR_APP";
+  name = "nix-on-rails";
   phases = lib.optional stdenv.isLinux [ "unpackPhase" ] ++ [ "noPhase" ];
   noPhase = "mkdir -p $out";
 
