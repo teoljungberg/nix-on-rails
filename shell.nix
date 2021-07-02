@@ -1,7 +1,7 @@
 # https://status.nixos.org/
 with import
   (fetchTarball "https://github.com/NixOS/nixpkgs/archive/ea7d4aa9b822.tar.gz")
-  { };
+{ };
 
 let
   postgresql = pkgs.postgresql_13;
@@ -33,7 +33,8 @@ let
   cpathEnv = builtins.getEnv "CPATH";
   libraryPathEnv = builtins.getEnv "LIBRARY_PATH";
   pathEnv = builtins.getEnv "PATH";
-in pkgs.mkShell {
+in
+pkgs.mkShell {
   name = "nix-on-rails";
   phases = lib.optional stdenv.isLinux [ "unpackPhase" ] ++ [ "noPhase" ];
   noPhase = "mkdir -p $out";
