@@ -17,7 +17,6 @@ let
     libxml2
     libxslt
     pkg-config
-    pkgconfig
     postgresql
     redis
     ruby
