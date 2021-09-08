@@ -50,6 +50,7 @@ pkgs.mkShell {
 
     export CPATH=${env}/include:${cpathEnv}
     export LIBRARY_PATH=${env}/lib:${libraryPathEnv}
-    PATH=$(pwd)/bin:$HOME/.gem/ruby/${ruby.version}/bin:${env}/bin:${pathEnv}
+    export GEM_HOME=$(pwd)/.gem/ruby/${ruby.version}
+    PATH=$(pwd)/bin:$GEM_HOME/bin:${env}/bin:${pathEnv}
   '';
 }
