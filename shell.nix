@@ -1,7 +1,9 @@
 # https://status.nixos.org/
-with import
-  (fetchTarball "https://github.com/NixOS/nixpkgs/archive/ea7d4aa9b822.tar.gz")
-{ };
+{ pkgs ? (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/ea7d4aa9b822.tar.gz") { })
+, lib ? pkgs.lib
+, stdenv ? pkgs.stdenv
+, ...
+}:
 
 let
   postgresql = pkgs.postgresql_13;
