@@ -32,7 +32,6 @@ let
   };
 
   cpathEnv = builtins.getEnv "CPATH";
-  libraryPathEnv = builtins.getEnv "LIBRARY_PATH";
 in
 pkgs.mkShell rec {
   name = "nix-on-rails";
@@ -43,12 +42,14 @@ pkgs.mkShell rec {
 
   PROJECT_ROOT = ./.;
   GEM_HOME = (toString PROJECT_ROOT + "/.gem/ruby/${ruby.version}");
+  LIBRARY_PATH = lib.makeLibraryPath [ env ];
   PATH = builtins.concatStringsSep ":" [
     (toString PROJECT_ROOT + "/bin")
     (toString GEM_HOME + "/bin")
     (toString env + "/bin")
     (builtins.getEnv "PATH")
   ];
+
   shellHook = ''
     export PGHOST=$(pwd)/tmp/postgres
     export PGDATA=$PGHOST/data
@@ -58,6 +59,5 @@ pkgs.mkShell rec {
     unset CC
 
     export CPATH=${env}/include:${cpathEnv}
-    export LIBRARY_PATH=${env}/lib:${libraryPathEnv}
   '';
 }
