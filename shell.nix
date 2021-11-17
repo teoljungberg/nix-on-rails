@@ -31,7 +31,7 @@ let
     extraOutputsToInstall = [ "bin" "lib" "include" ];
   };
 
-  cpathEnv = builtins.getEnv "CPATH";
+  makeCpath = lib.makeSearchPath "include";
 in
 pkgs.mkShell rec {
   name = "nix-on-rails";
@@ -43,6 +43,7 @@ pkgs.mkShell rec {
   PROJECT_ROOT = ./.;
   GEM_HOME = (toString PROJECT_ROOT + "/.gem/ruby/${ruby.version}");
   LIBRARY_PATH = lib.makeLibraryPath [ env ];
+  CPATH = makeCpath [ env ];
   PATH = builtins.concatStringsSep ":" [
     (toString PROJECT_ROOT + "/bin")
     (toString GEM_HOME + "/bin")
@@ -57,7 +58,5 @@ pkgs.mkShell rec {
     export PGLOG=$PGHOST/postgres.log
     export PGPORT=FILL_IN
     unset CC
-
-    export CPATH=${env}/include:${cpathEnv}
   '';
 }
