@@ -37,7 +37,6 @@ pkgs.mkShell rec {
   name = "nix-on-rails";
   phases = lib.optional stdenv.isLinux [ "unpackPhase" ] ++ [ "noPhase" ];
   noPhase = "mkdir -p $out";
-
   buildInputs = paths;
 
   PROJECT_ROOT = toString ./. + "/";
