@@ -41,9 +41,9 @@ pkgs.mkShell rec {
   noPhase = "mkdir -p $out";
   buildInputs = paths;
 
+  CPATH = makeCpath [ env ];
   GEM_HOME = PROJECT_ROOT + "/.gem/ruby/${ruby.version}";
   LIBRARY_PATH = lib.makeLibraryPath [ env ];
-  CPATH = makeCpath [ env ];
   PATH = makePathExpression (lib.makeBinPath [ PROJECT_ROOT GEM_HOME env ]);
 
   PROJECT_ROOT = toString ./. + "/";
