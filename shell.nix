@@ -32,6 +32,8 @@ let
   };
 
   makeCpath = lib.makeSearchPath "include";
+  makePathExpression = new:
+    builtins.concatStringsSep ":" [ new (builtins.getEnv "PATH") ];
 in
 pkgs.mkShell rec {
   name = "nix-on-rails";
@@ -39,15 +41,12 @@ pkgs.mkShell rec {
   noPhase = "mkdir -p $out";
   buildInputs = paths;
 
-  PROJECT_ROOT = toString ./. + "/";
   GEM_HOME = PROJECT_ROOT + "/.gem/ruby/${ruby.version}";
   LIBRARY_PATH = lib.makeLibraryPath [ env ];
   CPATH = makeCpath [ env ];
-  PATH = builtins.concatStringsSep ":" [
-    (lib.makeBinPath [ PROJECT_ROOT GEM_HOME env ])
-    (builtins.getEnv "PATH")
-  ];
+  PATH = makePathExpression (lib.makeBinPath [ PROJECT_ROOT GEM_HOME env ]);
 
+  PROJECT_ROOT = toString ./. + "/";
   PGHOST = PROJECT_ROOT + "/tmp/postgres";
   PGDATA = PGHOST + "/data";
   PGDATABASE = "postgres";
