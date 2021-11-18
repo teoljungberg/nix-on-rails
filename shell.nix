@@ -1,5 +1,5 @@
 # https://status.nixos.org/
-{ pkgs ? (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/ea7d4aa9b822.tar.gz") { })
+{ pkgs ? (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/7fad01d9d5a3.tar.gz") { })
 , lib ? pkgs.lib
 , stdenv ? pkgs.stdenv
 , ...
