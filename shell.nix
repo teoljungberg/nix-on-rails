@@ -55,5 +55,7 @@ pkgs.mkShell rec {
 
   shellHook = ''
     unset CC
+
+    export PATH=${PATH}:$PATH
   '';
 }
