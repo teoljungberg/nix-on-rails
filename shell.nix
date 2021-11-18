@@ -40,7 +40,7 @@ pkgs.mkShell rec {
   buildInputs = paths;
 
   PROJECT_ROOT = toString ./. + "/";
-  GEM_HOME = (PROJECT_ROOT + "/.gem/ruby/${ruby.version}");
+  GEM_HOME = PROJECT_ROOT + "/.gem/ruby/${ruby.version}";
   LIBRARY_PATH = lib.makeLibraryPath [ env ];
   CPATH = makeCpath [ env ];
   PATH = builtins.concatStringsSep ":" [
@@ -48,12 +48,13 @@ pkgs.mkShell rec {
     (builtins.getEnv "PATH")
   ];
 
+  PGHOST = PROJECT_ROOT + "/tmp/postgres";
+  PGDATA = PGHOST + "/data";
+  PGDATABASE = "postgres";
+  PGLOG = PGHOST + "/postgres.log";
+  PGPORT = "FILL_IN";
+
   shellHook = ''
-    export PGHOST=$(pwd)/tmp/postgres
-    export PGDATA=$PGHOST/data
-    export PGDATABASE=postgres
-    export PGLOG=$PGHOST/postgres.log
-    export PGPORT=FILL_IN
     unset CC
   '';
 }
