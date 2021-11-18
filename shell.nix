@@ -43,11 +43,7 @@ pkgs.mkShell rec {
   GEM_HOME = (PROJECT_ROOT + "/.gem/ruby/${ruby.version}");
   LIBRARY_PATH = lib.makeLibraryPath [ env ];
   CPATH = makeCpath [ env ];
-  bins = lib.makeBinPath [
-    PROJECT_ROOT
-    GEM_HOME
-    env
-  ];
+  bins = lib.makeBinPath [ PROJECT_ROOT GEM_HOME env ];
   PATH = builtins.concatStringsSep ":" [ bins (builtins.getEnv "PATH") ];
 
   shellHook = ''
