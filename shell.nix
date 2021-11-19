@@ -41,12 +41,13 @@ pkgs.mkShell rec {
   noPhase = "mkdir -p $out";
   buildInputs = paths;
 
+  PROJECT_ROOT = toString ./. + "/";
+
   CPATH = makeCpath [ env ];
   GEM_HOME = PROJECT_ROOT + "/.gem/ruby/${ruby.version}";
   LIBRARY_PATH = lib.makeLibraryPath [ env ];
   PATH = makePathExpression (lib.makeBinPath [ PROJECT_ROOT GEM_HOME env ]);
 
-  PROJECT_ROOT = toString ./. + "/";
   PGHOST = PROJECT_ROOT + "/tmp/postgres";
   PGDATA = PGHOST + "/data";
   PGDATABASE = "postgres";
