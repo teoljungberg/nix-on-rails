@@ -52,7 +52,7 @@ pkgs.mkShell rec {
   PGDATA = PGHOST + "/data";
   PGDATABASE = "postgres";
   PGLOG = PGHOST + "/postgres.log";
-  PGPORT = "FILL_IN";
+  PGPORT = "5432";
 
   shellHook = ''
     unset CC
