@@ -31,7 +31,7 @@ let
     extraOutputsToInstall = [ "bin" "lib" "include" ];
   };
 
-  makeCpath = lib.makeSearchPath "include";
+  makeCpath = lib.makeSearchPathOutput "include" "include";
   makePathExpression = new:
     builtins.concatStringsSep ":" [ new (builtins.getEnv "PATH") ];
 in
