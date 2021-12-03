@@ -8,6 +8,7 @@
 let
   postgresql = pkgs.postgresql_13;
   ruby = pkgs.ruby_3_0;
+  redis = pkgs.redis;
   paths = with pkgs; [
     cmake
     file
