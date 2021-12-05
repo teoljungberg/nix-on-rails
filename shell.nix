@@ -62,7 +62,5 @@ pkgs.mkShell rec {
     unset CC
 
     export PATH=${PATH}:$PATH
-
-    ${PROJECT_ROOT}/bin/mainframe up
   '';
 }
