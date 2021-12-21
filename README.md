@@ -9,3 +9,9 @@ An example of what is required to run your run-of-the-mill Rails application.
 1. Copy `bin/mainframe` into your project.
 1. Setup direnv: `direnv allow`.
 1. Copy `gitignore-sample` into `.git/info/exclude`.
+
+## Testing
+
+```
+% nix-build -A test
+```
