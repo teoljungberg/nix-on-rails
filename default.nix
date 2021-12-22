@@ -14,6 +14,8 @@ let
     ];
     phases = lib.optional stdenv.isLinux [ "unpackPhase" ] ++ [ "noPhase" ];
     noPhase = ''
+      mkdir $out
+
       sh ${./test/version-test.sh} ${nix-on-rails}
     '';
   };
