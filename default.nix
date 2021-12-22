@@ -1,5 +1,5 @@
 { pkgs ? (import <nixpkgs> { })
-, stdenv ? pkgs.stdenv
+, stdenv ? pkgs.stdenvNoCC
 , lib ? pkgs.lib
 , ...
 }:
