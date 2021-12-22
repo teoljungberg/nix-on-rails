@@ -13,5 +13,5 @@ An example of what is required to run your run-of-the-mill Rails application.
 ## Testing
 
 ```
-% nix-build -A test
+% nix-build --no-out-link
 ```
