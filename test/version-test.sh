@@ -1,7 +1,6 @@
 #!/bin/sh
 
 set -e
-[ -n "$DEBUG" ] && set -ex
 
 if [ -n "$1" ]; then
   DERIVATION="$1"
