@@ -16,6 +16,6 @@ stdenv.mkDerivation {
     ln -s ${nix-on-rails} $out/nix-on-rails
     ln -s ${./version-test.sh} $out/version-test.sh
 
-    $out/version-test.sh "$out/nix-on-rails"
+    sh $out/version-test.sh "$out/nix-on-rails"
   '';
 }
