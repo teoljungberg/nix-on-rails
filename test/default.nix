@@ -7,6 +7,9 @@
 
 stdenv.mkDerivation {
   name = "test-nix-on-rails";
+  buildInputs = [
+    nix-on-rails
+  ];
   phases = lib.optional stdenv.isLinux [ "unpackPhase" ] ++ [ "noPhase" ];
   noPhase = ''
     mkdir $out
