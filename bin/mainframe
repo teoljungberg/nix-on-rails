@@ -24,18 +24,18 @@ postgres_start() {
     fi
 
     if [ ! -d "$PGDATA" ]; then
-      initdb --auth=trust --no-locale --encoding=UTF8 1>$OUTPUT 2>$OUTPUT
+      initdb --auth=trust --no-locale --encoding UTF8 1>$OUTPUT 2>$OUTPUT
     fi
 
     pg_ctl start \
-      -l "$PGLOG" \
-      -o "--port='$PGPORT' --unix_socket_directories='$PGHOST'" \
+      --log "$PGLOG" \
+      --options "--port='$PGPORT' --unix_socket_directories='$PGHOST'" \
       1>$OUTPUT 2>$OUTPUT &
   fi
 }
 
 postgres_stop() {
-  pg_ctl stop -D "$PGDATA" 1>$OUTPUT 2>$OUTPUT
+  pg_ctl stop --pgdata "$PGDATA" 1>$OUTPUT 2>$OUTPUT
 }
 
 postgres_status() {
