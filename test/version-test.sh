@@ -30,8 +30,8 @@ assertVersion() {
   fi
 }
 
-assertVersion "ruby" "ruby --version" "3.0.2"
-assertVersion "psql" "psql --version" "13.4"
+assertVersion "ruby" "ruby --version" "3.1.0"
+assertVersion "psql" "psql --version" "13.5"
 assertVersion "redis" "redis-cli --version" "6.2.6"
 
 echo

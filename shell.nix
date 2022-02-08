@@ -1,5 +1,5 @@
 # https://status.nixos.org/
-{ pkgs ? (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/7fad01d9d5a3.tar.gz") { })
+{ pkgs ? (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/0ecf7d414811.tar.gz") { })
 , lib ? pkgs.lib
 , stdenv ? pkgs.stdenv
 , ...
@@ -7,7 +7,7 @@
 
 let
   postgresql = pkgs.postgresql_13;
-  ruby = pkgs.ruby_3_0;
+  ruby = pkgs.ruby_3_1;
   redis = pkgs.redis;
   paths = with pkgs; [
     file
