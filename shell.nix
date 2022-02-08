@@ -1,5 +1,9 @@
 # https://status.nixos.org/
-{ pkgs ? (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/0ecf7d414811.tar.gz") { })
+{ pkgs ? (
+    import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/0ecf7d414811.tar.gz") {
+      overlays = [ ];
+    }
+  )
 , lib ? pkgs.lib
 , stdenv ? pkgs.stdenv
 , ...
