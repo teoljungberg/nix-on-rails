@@ -1,7 +1,7 @@
 # https://status.nixos.org/
 { pkgs ? (
     import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/0ecf7d414811.tar.gz") {
-      overlays = [ ];
+      # overlays = import ./.nix/overlays;
     }
   )
 , lib ? pkgs.lib
