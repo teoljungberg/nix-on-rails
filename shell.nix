@@ -11,8 +11,8 @@
 
 let
   postgresql = pkgs.postgresql_13;
-  ruby = pkgs.ruby_3_1;
   redis = pkgs.redis;
+  ruby = pkgs.ruby_3_1;
   paths = with pkgs; [
     file
     gcc
