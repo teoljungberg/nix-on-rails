@@ -20,6 +20,7 @@ stdenv.mkDerivation {
 
 sh $out/version-test.sh "$out/nix-on-rails"
 EOS
+  chmod +x "$out/test.sh"
 
   sh "$out/test.sh"
   '';
