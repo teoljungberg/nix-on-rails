@@ -47,6 +47,7 @@ pkgs.mkShell rec {
     ln -s ${env}/bin/* $out/bin/
   '';
   buildInputs = paths;
+  src = ./.;
 
   PROJECT_ROOT = toString ./. + "/";
 
