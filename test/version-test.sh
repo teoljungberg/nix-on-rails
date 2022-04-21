@@ -31,7 +31,7 @@ assertVersion() {
 }
 
 assertVersion "ruby" "ruby --version" "3.1.2"
-assertVersion "psql" "psql --version" "13.6"
+assertVersion "psql" "psql --version" "13.4"
 assertVersion "redis" "redis-cli --version" "6.2.6"
 
 echo
