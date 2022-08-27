@@ -1,7 +1,7 @@
 { pkgs ? import <nixpkgs> { }
 , stdenv ? pkgs.stdenv
 , lib ? pkgs.lib
-, nix-on-rails ? import ../shell.nix { }
+, nix-on-rails ? import ../src/shell.nix { }
 , ...
 }:
 

@@ -1,0 +1,45 @@
+#!/bin/sh
+
+set -e
+
+usage() {
+  echo "bin/nix-on-rails ."
+  echo "bin/nix-on-rails ~/src/github.com/teoljungberg/project"
+}
+
+root=$(cd "$(dirname "$0")/../" && pwd)/
+project="$1"
+
+if [ -z "$project" ]; then
+  echo "Must provide a project"
+  usage
+  exit 1
+fi
+
+if [ "$project" = "." ]; then
+  project="$(pwd)"
+fi
+
+if [ ! -d "$project" ]; then
+  echo "Not a directory $project"
+  usage
+  exit 1
+fi
+
+name=$(basename "$project")
+
+copy_file() {
+  if [ ! -f "$2" ]; then
+    cp "$1" "$2"
+  fi
+}
+
+[ ! -d "$project/bin" ] && mkdir -p "$project/bin"
+[ ! -d "$project/.git/info" ] && mkdir -p "$project/.git/info"
+
+copy_file "$root/src/shell.nix" "$project/shell.nix"
+copy_file "$root/src/bin/mainframe" "$project/bin/mainframe"
+copy_file "$root/src/envrc" "$project/.envrc"
+copy_file "$root/src/gitignore-sample" "$project/.git/info/exclude"
+
+sed -i "s/nix-on-rails/$name/" "$project/shell.nix"
