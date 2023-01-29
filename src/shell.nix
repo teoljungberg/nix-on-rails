@@ -13,7 +13,7 @@ let
   postgresql = pkgs.postgresql_15;
   redis = pkgs.redis;
   ruby = (
-    import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/df78cc4e2a46.tar.gz") { }
+    import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/22.11.tar.gz") { }
   ).ruby_3_1;
   paths = with pkgs; [
     file
