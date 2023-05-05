@@ -39,7 +39,11 @@ postgres_stop() {
 }
 
 postgres_status() {
-  pg_ctl status 1>$OUTPUT
+  if pg_ctl 1>$OUTPUT 1>$OUTPUT 2>$OUTPUT; then
+    echo "PortgreSQL: OK"
+  else
+    echo "PortgreSQL: ERROR"
+  fi
 }
 
 redis_start() {
@@ -58,7 +62,11 @@ redis_stop() {
 }
 
 redis_status() {
-  redis-cli ping
+  if redis-cli ping 1>$OUTPUT 2>$OUTPUT; then
+    echo "Redis: OK"
+  else
+    echo "Redis: ERROR"
+  fi
 }
 
 show_help() {
@@ -82,16 +90,8 @@ down() {
 
 status() {
   set +e
-  if postgres_status 1>$OUTPUT 2>$OUTPUT; then
-    echo "PortgreSQL: OK"
-  else
-    echo "PortgreSQL: ERROR"
-  fi
-  if redis_status 1>$OUTPUT 2>$OUTPUT; then
-    echo "Redis: OK"
-  else
-    echo "Redis: ERROR"
-  fi
+  postgres_status
+  redis_status
   set -e
 }
 
